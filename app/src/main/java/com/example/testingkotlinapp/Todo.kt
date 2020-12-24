@@ -1,6 +1,11 @@
 package com.example.testingkotlinapp
 
+import java.lang.reflect.Constructor
+
 data class Todo(
-        val title : String,
-        var isChecked : Boolean
-)
+        var id:Int,
+        var title:String,
+        var isChecked:String
+){
+    constructor() : this(0, "", "")
+}

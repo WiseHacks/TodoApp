@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ToDo</string>
+    <array name="colorsTodo">
+        <item>#3C008F</item>
+        <item>#932502</item>
+        <item>#004A41</item>
+    </array>
 </resources>
