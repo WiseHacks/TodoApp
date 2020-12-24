@@ -1,7 +1,6 @@
 package com.example.testingkotlinapp
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
@@ -39,7 +38,8 @@ class CustomAdapter(
                 cnt%3==2 -> txtTodo.setTextColor(Color.parseColor("#932502"))
                 cnt%3==0 -> txtTodo.setTextColor(Color.parseColor("#004A41"))
             }
-            StrikeThru(txtTodo,cur.isChecked)
+            var color = txtTodo.currentTextColor
+            checkStatus(txtTodo,cur.isChecked,color)
             db.updateTodo(cur)
             if(cur.isChecked == "undone"){
                 btnDoneTodo.isEnabled = true
@@ -54,14 +54,14 @@ class CustomAdapter(
                 db.updateTodo(cur)
                 btnDoneTodo.isEnabled = false
                 btnUndoneTodo.isEnabled = true
-                StrikeThru(txtTodo,cur.isChecked)
+                checkStatus(txtTodo,cur.isChecked,color)
             }
             btnUndoneTodo.setOnClickListener {
                 cur.isChecked = "undone"
                 db.updateTodo(cur)
                 btnDoneTodo.isEnabled = true
                 btnUndoneTodo.isEnabled = false
-                StrikeThru(txtTodo,cur.isChecked)
+                checkStatus(txtTodo,cur.isChecked,color)
             }
         }
     }
@@ -69,12 +69,13 @@ class CustomAdapter(
     override fun getItemCount(): Int {
         return todoList.size
     }
-    fun StrikeThru(txtTodo: TextView, isChecked : String){
+    fun checkStatus(txtTodo: TextView, isChecked : String , color : Int){
+
         if(isChecked == "done"){
-            txtTodo.paintFlags  =txtTodo.paintFlags or STRIKE_THRU_TEXT_FLAG
+            txtTodo.setTextColor(Color.parseColor("#B6B1B1"))
         }
         else{
-            txtTodo.paintFlags = 0
+            txtTodo.setTextColor(color)
         }
     }
     fun addTodo(todo :Todo){
