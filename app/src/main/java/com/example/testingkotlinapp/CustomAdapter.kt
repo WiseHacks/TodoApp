@@ -39,7 +39,7 @@ class CustomAdapter(
                 cnt%3==0 -> txtTodo.setTextColor(Color.parseColor("#004A41"))
             }
             var color = txtTodo.currentTextColor
-            checkStatus(txtTodo,cur.isChecked,color)
+            checkStatus(txtTodo,cur.isChecked,color,textCount)
             db.updateTodo(cur)
             if(cur.isChecked == "undone"){
                 btnDoneTodo.isEnabled = true
@@ -54,14 +54,14 @@ class CustomAdapter(
                 db.updateTodo(cur)
                 btnDoneTodo.isEnabled = false
                 btnUndoneTodo.isEnabled = true
-                checkStatus(txtTodo,cur.isChecked,color)
+                checkStatus(txtTodo,cur.isChecked,color,textCount)
             }
             btnUndoneTodo.setOnClickListener {
                 cur.isChecked = "undone"
                 db.updateTodo(cur)
                 btnDoneTodo.isEnabled = true
                 btnUndoneTodo.isEnabled = false
-                checkStatus(txtTodo,cur.isChecked,color)
+                checkStatus(txtTodo,cur.isChecked,color,textCount)
             }
         }
     }
@@ -69,13 +69,15 @@ class CustomAdapter(
     override fun getItemCount(): Int {
         return todoList.size
     }
-    fun checkStatus(txtTodo: TextView, isChecked : String , color : Int){
+    fun checkStatus(txtTodo: TextView, isChecked : String , color : Int,textCount : TextView){
 
         if(isChecked == "done"){
             txtTodo.setTextColor(Color.parseColor("#B6B1B1"))
+            textCount.setTextColor(Color.parseColor("#8C8888"))
         }
         else{
             txtTodo.setTextColor(color)
+            textCount.setTextColor(Color.parseColor("#C51162"))
         }
     }
     fun addTodo(todo :Todo){
